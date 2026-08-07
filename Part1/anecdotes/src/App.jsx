@@ -42,7 +42,7 @@ const App = () => {
   const handleNextAnecdote = () => {
     while(true)
     {
-      const randomNo = Math.floor(Math.random() * (anecdotes.length - 0))
+      const randomNo = Math.floor(Math.random() * anecdotes.length)
       if(randomNo !== selected) {
         setSelected(randomNo)
         break;
@@ -72,7 +72,7 @@ const App = () => {
 
       <Header text="Anecdote with most votes"/>
       <DisplayAnecdote anecdote={anecdotes[indexOfMaxVote]} vote={maxVote}/>
-      
+
     </div>
   )
 }
