@@ -17,14 +17,13 @@ const Header = ({text}) => {
 }
 
 const StatisticsLine = ({text, value}) => {
-  console.log("Text: ", text)
-  console.log("Value: ", value)
+  // console.log("Text: ", text)
+  // console.log("Value: ", value)
   return (
-    <div>
-      <p>
-        {text} {value}
-      </p>
-    </div>
+    <tr>
+      <td>{text}</td> 
+      <td>{value}</td>
+    </tr>
   )
 }
 
@@ -35,23 +34,25 @@ const Statistics = ({good, neutral, bad}) => {
   }
 
   const average = (good, neutral, bad) => {
-    return ((good - bad)/all(good, neutral, bad));
+    return ((good - bad)/all(good, neutral, bad)).toFixed(1);
   }
 
   const positive = (good, neutral, bad) => {
-    return ((good/all(good, neutral, bad))*100);
+    return ((good/all(good, neutral, bad))*100).toFixed(1);
   }
 
   if(all(good, neutral, bad)) {
     return (
-      <div>
-        <StatisticsLine text="good" value={good} />
-        <StatisticsLine text="neutral" value={neutral} />
-        <StatisticsLine text="bad" value={bad} /> 
-        <StatisticsLine text="all" value={all(good, neutral, bad)} /> 
-        <StatisticsLine text="average" value={average(good, neutral, bad)} /> 
-        <StatisticsLine text="positive" value={`${positive(good, neutral, bad)} %`}/>
-      </div>
+      <table>
+        <tbody>
+          <StatisticsLine text="good" value={good} />
+          <StatisticsLine text="neutral" value={neutral} />
+          <StatisticsLine text="bad" value={bad} />
+          <StatisticsLine text="all" value={all(good, neutral, bad)} />
+          <StatisticsLine text="average" value={average(good, neutral, bad)} />
+          <StatisticsLine text="positive" value={`${positive(good, neutral, bad)} %`}/>
+        </tbody>
+      </table>
     )
   } else {
     return (
