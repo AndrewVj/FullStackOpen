@@ -42,16 +42,24 @@ const Statistics = ({good, neutral, bad}) => {
     return ((good/all(good, neutral, bad))*100);
   }
 
-  return (
-    <div>
-      <StatisticsLine text="good" value={good} />
-      <StatisticsLine text="neutral" value={neutral} />
-      <StatisticsLine text="bad" value={bad} /> 
-      <StatisticsLine text="all" value={all(good, neutral, bad)} /> 
-      <StatisticsLine text="average" value={average(good, neutral, bad)} /> 
-      <StatisticsLine text="positive" value={`${positive(good, neutral, bad)} %`}/>
-    </div>
-  )
+  if(all(good, neutral, bad)) {
+    return (
+      <div>
+        <StatisticsLine text="good" value={good} />
+        <StatisticsLine text="neutral" value={neutral} />
+        <StatisticsLine text="bad" value={bad} /> 
+        <StatisticsLine text="all" value={all(good, neutral, bad)} /> 
+        <StatisticsLine text="average" value={average(good, neutral, bad)} /> 
+        <StatisticsLine text="positive" value={`${positive(good, neutral, bad)} %`}/>
+      </div>
+    )
+  } else {
+    return (
+      <div>No feedback given</div>
+    )
+  }
+
+  
 }
 
 
