@@ -34,31 +34,31 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-  const [all, setAll] = useState(0)
-  const [average, setAverage] = useState(0)
-  const [positive, setPositive] = useState(0)
 
   console.log("The Component Rendered")
 
   const handleGood = () => {
     setGood(good + 1)
-    setAll(all + 1)
-    setAverage((good - bad + 1)/(all + 1))
-    setPositive(((good + 1)/(all + 1))*100)
   }
 
   const handleNeutral = () => {
     setNeutral(neutral + 1)
-    setAll(all + 1)
-    setAverage((good - bad)/(all + 1))
-    setPositive((good / (all + 1))*100)
   }
   
   const handleBad = () => {
     setBad(bad + 1)
-    setAll(all + 1)
-    setAverage((good - 1 - bad)/(all + 1))
-    setPositive((good / (all + 1))*100)
+  }
+
+  const all = (good, neutral, bad) => {
+    return (good + neutral + bad);
+  }
+
+  const average = (good, neutral, bad) => {
+    return ((good - bad)/all(good, neutral, bad));
+  }
+
+  const positive = (good, neutral, bad) => {
+    return ((good/(good + neutral + bad))*100);
   }
 
   return (
@@ -71,9 +71,9 @@ const App = () => {
       <StatisticsLine text="good" value={good} />
       <StatisticsLine text="neutral" value={neutral} />
       <StatisticsLine text="bad" value={bad} /> 
-      <StatisticsLine text="all" value={all} /> 
-      <StatisticsLine text="average" value={average} /> 
-      <StatisticsLine text="positive" value={`${positive} %`}/>
+      <StatisticsLine text="all" value={all(good, neutral, bad)} /> 
+      <StatisticsLine text="average" value={average(good, neutral, bad)} /> 
+      <StatisticsLine text="positive" value={`${positive(good, neutral, bad)} %`}/>
     </div>
   )
 }
