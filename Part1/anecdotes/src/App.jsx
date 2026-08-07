@@ -8,6 +8,22 @@ const Button = ({onClick, text}) => {
   )
 }
 
+const Header = ({text}) => {
+  return (
+    <h1>
+      {text}
+    </h1>
+  )
+}
+
+const DisplayAnecdote = ({anecdote, vote}) => {
+  return(
+    <div>{anecdote}
+      <p>has {vote} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -24,7 +40,6 @@ const App = () => {
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
   const handleNextAnecdote = () => {
-
     while(true)
     {
       const randomNo = Math.floor(Math.random() * (anecdotes.length - 0))
@@ -41,14 +56,23 @@ const App = () => {
     setVotes(voteCopy)
   }
 
+  const maxVote = Math.max(...votes)
+  const indexOfMaxVote = votes.indexOf(maxVote);
+
   return (
     <div>
-      {anecdotes[selected]}
-      <p>has {votes[selected]} votes</p>
+
+      <Header text="Anecdote of the day"/>
+      <DisplayAnecdote anecdote={anecdotes[selected]} vote={votes[selected]} />
+      
       <p>
         <Button onClick={() => handleVotes()} text="vote"/>
         <Button onClick={handleNextAnecdote} text="next anecdote"/>
       </p>
+
+      <Header text="Anecdote with most votes"/>
+      <DisplayAnecdote anecdote={anecdotes[indexOfMaxVote]} vote={maxVote}/>
+      
     </div>
   )
 }
