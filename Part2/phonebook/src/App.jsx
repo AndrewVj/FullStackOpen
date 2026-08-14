@@ -6,18 +6,18 @@ const Person = ({person}) => {
   )
 }
 
-const Numbers = ({persons}) => {
-  return persons.map(person => <Person key={person.name} person={person}/>)
+const Persons = ({persons, newFilter}) => {
+  return persons.filter((person) => person.name.toLowerCase().includes(newFilter.toLowerCase()))
+                .map(person => <Person key={person.name} person={person}/>)
 }
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',
-      number: '040-1234567'
-     }
+    { name: 'Arto Hellas', number: '040-1234567'}
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [newFilter, setNewFilter] = useState('')
 
   const handleNewNameChange = (event) => {
     setNewName(event.target.value)
@@ -25,6 +25,10 @@ const App = () => {
 
   const handleNewNumberChange = (event) => {
     setNewNumber(event.target.value)
+  }
+
+  const handleNewFilterChange = (event) => {
+    setNewFilter(event.target.value)
   }
 
   const addPerson = (event) => {
@@ -47,11 +51,18 @@ const App = () => {
     alreadyPresent ? alert(`${newName} is already added to phonebook`) : setPersons(persons.concat(personObj))
     setNewName('')
     setNewNumber('')
+    setNewFilter('')
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>filter shown with <input 
+                                value={newFilter} 
+                                onChange = {handleNewFilterChange}
+                              />
+      </div>
+      <h2>add a new</h2>
       <form onSubmit = {addPerson}>
         <div>
           name: <input 
@@ -70,7 +81,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <Numbers persons={persons} />
+      <Persons persons={persons} newFilter={newFilter}/>
     </div>
   )
 }
