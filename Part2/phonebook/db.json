@@ -17,8 +17,13 @@
     },
     {
       "name": "Allan",
-      "number": "1234",
+      "number": "12345",
       "id": "l2CxIyshkxY"
+    },
+    {
+      "name": "Andrew",
+      "number": "12345678",
+      "id": "JyYG87aTvUY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

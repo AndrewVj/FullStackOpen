@@ -57,19 +57,34 @@ const App = () => {
     }
 
     let alreadyPresent = false
+    let existingPerson = {}
 
     persons.forEach((person) => {
       if (person.name === newName) {
        alreadyPresent = true
+       existingPerson = person
       }
     })
 
-    alreadyPresent ? alert(`${newName} is already added to phonebook`) : personsService.create(personObj).then(returnedPerson => {
-      setPersons(persons.concat(returnedPerson))
-      setNewName('')
-      setNewNumber('')
-      setNewFilter('')
-    })    
+    if(alreadyPresent) {
+      const usrChoice = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+      if(usrChoice) {
+        personsService
+        .update(existingPerson.id, {...existingPerson, number: newNumber})
+        .then(returnedPerson => {
+          setPersons(persons.map(person => person.id !== existingPerson.id ? person : returnedPerson ))
+        })
+      }
+    } else {
+      personsService
+      .create(personObj)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+        setNewFilter('')
+      })    
+    }    
   }
 
   return (
