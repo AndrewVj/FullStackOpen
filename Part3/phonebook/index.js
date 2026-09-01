@@ -58,8 +58,6 @@ app.delete('/api/persons/:id', (req, res) => {
 app.post('/api/persons', (req, res) => {
     const body = req.body
 
-    console.log(body)
-
     if (!body.name) {
         return res.status(400).json({
             error: 'name is missing'
@@ -84,7 +82,7 @@ app.post('/api/persons', (req, res) => {
         id: Math.floor(Math.random() * 1000000000000)
     }
     
-    
+
     
     
 })
