@@ -42,9 +42,9 @@ const App = () => {
       personsService
       .remove(person.id)
       .then(deletedPerson => {
-        setPersons(persons.filter(person => person.id !== deletedPerson.id))
+        setPersons(persons.filter(p => p.id !== person.id))
 
-        setNotificationMessage(`${deletedPerson.name} was deleted `)
+        setNotificationMessage(`${deletedPerson.name || person.name} was deleted `)
 
           setTimeout(() => {
             setNotificationMessage(null)
