@@ -10,6 +10,11 @@ if(process.argv.length === 4) {
   process.exit(1)
 }
 
+if(process.argv.length > 5) {
+  console.log("Way too many arguments")
+  process.exit(1)
+}
+
 const password = process.argv[2]
 
 const url = `mongodb+srv://andsyl_db_user:${password}@cluster0.7tjbswo.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
